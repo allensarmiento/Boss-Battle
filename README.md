@@ -1,5 +1,6 @@
 # Boss-Battle
-Boss battle game board for a total of 3 teams.  
+Boss battle template game board used for a total of 3 teams.  
+This program is designed for quicker customization between different themes.
 
 Language: Python 3  
 How to compile: python3 boss-battle.py  
