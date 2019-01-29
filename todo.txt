@@ -1,0 +1,15 @@
+TODO:
+
+Main Menu:
+  - Background Image [Check]
+  - Play Button
+  - Quit Button
+  - Other Buttons
+
+Game:
+  - Image of teams
+  - Teams names
+  - Attack Input w/ submit button
+  - Boss Image
+  - Boss Health
+
