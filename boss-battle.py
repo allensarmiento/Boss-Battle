@@ -30,14 +30,77 @@ title_screen_img_path = "starwarslogo.png"
 #############################
 
 
-# When we want to access the title image, call this function
+# Function: title_image
+# Call this function when we wnat to access the title image
 def title_image(x, y):
     gameDisplay.blit(title_img, (x, y))
 
-# Render the text 
+# Function: render_text
+# Call this function whene we want to render the text 
 def render_text(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
+
+# Function: button
+# Call this function when we want to create a button
+def button(msg, x, y, width, height, hover_color, original_color, action=None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    if x+width > mouse[0] > x and y+height > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, hover_color, (x,y,width,height))
+        
+        # If left click on the button, then call the action
+        if click[0] == 1 and action != None:
+            if action == "play":
+                game_loop()
+            elif action == "quit":
+                pygame.quit()
+                quit()
+    else:
+        pygame.draw.rect(gameDisplay, original_color, (x,y,width,height))
+
+    # Add the button 
+    buttonText = pygame.font.Font("freesansbold.ttf", 20)
+    textSurf, textRect = render_text(msg, buttonText)
+    textRect.center = ( (x+(width/2)), (y+(height/2)) )
+    gameDisplay.blit(textSurf, textRect)
+
+# Function: game_intro
+# Call this function to display the home screen
+def game_intro():
+    gameDisplay.fill(background_color)
+    title_image(x, y)
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        
+        button("Play", 250, 600, 150, 50, button_hover_color, button_color, "play")
+        button("Quit", 650, 600, 150, 50, button_hover_color, button_color, "quit")
+
+        pygame.display.update()
+        clock.tick(60)
+
+# Fuction: game_loop
+def game_loop():
+    gameDisplay.fill(background_color)
+
+    game = True
+
+    while game:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        # NOTE: This is just here to check that we are changing scenes
+        button("In Game Button", 450, 500, 200, 50, button_hover_color, button_color, "game")
+        
+        pygame.display.update()
+        clock.tick(60)
 
 
 # Set the window size and title
@@ -56,6 +119,9 @@ title_img = pygame.transform.scale(title_img, (display_width-300, display_height
 # NOTE: Change these values to center the image how you would like.
 (x, y) = (150, 50)
 
+# Loop for intro screen
+intro = True
+
 # Game Loop
 running = True
 while running:
@@ -63,39 +129,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    gameDisplay.fill(background_color)
-    title_image(x, y)
-
     # Keep track of mouse movement
     mouse = pygame.mouse.get_pos()
 
-    # Play button
-    if 250+150 > mouse[0] > 250 and 600+50 > mouse[1] > 600:
-        pygame.draw.rect(gameDisplay, button_hover_color, (250, 600, 150, 50))
-    else:
-        pygame.draw.rect(gameDisplay, button_color, (250, 600, 150, 50))
-
-    # Set the button text defaults
-    buttonText = pygame.font.Font("freesansbold.ttf", 20)
-
-    # Play button text
-    textSurf, textRect = render_text("Play", buttonText)
-    textRect.center = ( (250+(150/2)), (600+(50/2)) )
-    gameDisplay.blit(textSurf, textRect)
-
-    # Quit button
-    if 650+150 > mouse[0] > 650 and 600+50 > mouse[1] > 600:
-        pygame.draw.rect(gameDisplay, button_hover_color, (650, 600, 150, 50))
-    else:
-        pygame.draw.rect(gameDisplay, button_color, (650, 600, 150, 50))
-
-    # Quit button text
-    textSurf, textRect = render_text("Quit", buttonText)
-    textRect.center = ( (650+(150/2)), (600+(50/2)) )
-    gameDisplay.blit(textSurf, textRect)
-
-    pygame.display.update()
-    clock.tick(60)
+    # Start the game intro
+    game_intro()
 
 # If we reach this point, quit the program
 pygame.quit()

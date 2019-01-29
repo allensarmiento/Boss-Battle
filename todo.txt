@@ -4,8 +4,8 @@ Main Menu:
   - Background Image [Check]
   - Play Button [Check]
   - Quit Button [Check]
-  - Play Button functionality
-  - Quit Button functionality
+  - Play Button functionality [Check]
+  - Quit Button functionality [Check]
   - Other Buttons
 
 Game:
@@ -14,4 +14,4 @@ Game:
   - Attack Input w/ submit button
   - Boss Image
   - Boss Health
-
+  - Textfile to remember the gameboard
