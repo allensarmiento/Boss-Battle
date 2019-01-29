@@ -2,8 +2,10 @@ TODO:
 
 Main Menu:
   - Background Image [Check]
-  - Play Button
-  - Quit Button
+  - Play Button [Check]
+  - Quit Button [Check]
+  - Play Button functionality
+  - Quit Button functionality
   - Other Buttons
 
 Game:
