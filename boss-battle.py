@@ -23,10 +23,22 @@ display_height = 768
 background_color = black
 button_color = grey
 button_hover_color = yellow
+input_color = white
+input_hover = grey
 
 game_title = "Star Wars: EpSIode 2019"
 
 title_screen_img_path = "starwarslogo.png"
+
+#Team names and images
+team1_name = ""
+team1_image = ""
+
+team2_name = ""
+team2_image = ""
+
+team3_name = ""
+team3_image = ""
 #############################
 
 
@@ -36,7 +48,7 @@ def title_image(x, y):
     gameDisplay.blit(title_img, (x, y))
 
 # Function: render_text
-# Call this function whene we want to render the text 
+# Call this function whene we want to render the text
 def render_text(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
@@ -49,7 +61,7 @@ def button(msg, x, y, width, height, hover_color, original_color, action=None):
 
     if x+width > mouse[0] > x and y+height > mouse[1] > y:
         pygame.draw.rect(gameDisplay, hover_color, (x,y,width,height))
-        
+
         # If left click on the button, then call the action
         if click[0] == 1 and action != None:
             if action == "play":
@@ -60,11 +72,28 @@ def button(msg, x, y, width, height, hover_color, original_color, action=None):
     else:
         pygame.draw.rect(gameDisplay, original_color, (x,y,width,height))
 
-    # Add the button 
+    # Add the button
     buttonText = pygame.font.Font("freesansbold.ttf", 20)
     textSurf, textRect = render_text(msg, buttonText)
     textRect.center = ( (x+(width/2)), (y+(height/2)) )
     gameDisplay.blit(textSurf, textRect)
+
+
+#Function: input_box
+#Draw the input box
+def input_box(x, y, width, height, hover_color, original_color):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    active = False
+
+    if x+width > mouse[0] > x and y+height > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, hover_color, (x,y,width,height))
+
+        # If left click on the button, then call the action
+        if click[0] == 1: #and action != None:
+            active = True
+    else:
+        pygame.draw.rect(gameDisplay, original_color, (x,y,width,height))
 
 # Function: game_intro
 # Call this function to display the home screen
@@ -77,7 +106,7 @@ def game_intro():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        
+
         button("Play", 250, 600, 150, 50, button_hover_color, button_color, "play")
         button("Quit", 650, 600, 150, 50, button_hover_color, button_color, "quit")
 
@@ -97,8 +126,11 @@ def game_loop():
                 quit()
 
         # NOTE: This is just here to check that we are changing scenes
-        button("In Game Button", 450, 500, 200, 50, button_hover_color, button_color, "game")
-        
+        input_box(200, 300, 200, 50, input_hover, input_color)#meant to be an input button for points
+        input_box(450, 300, 200, 50, input_hover, input_color)
+        input_box(700, 300, 200, 50, input_hover, input_color)
+        button("In Game Button", 450, 600, 200, 50, button_hover_color, button_color, "game")
+
         pygame.display.update()
         clock.tick(60)
 
