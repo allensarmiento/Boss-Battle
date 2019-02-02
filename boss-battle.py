@@ -1,5 +1,5 @@
 import pygame
-
+from tkinter import *
 
 pygame.init()
 
@@ -79,22 +79,6 @@ def button(msg, x, y, width, height, hover_color, original_color, action=None):
     gameDisplay.blit(textSurf, textRect)
 
 
-#Function: input_box
-#Draw the input box
-def input_box(x, y, width, height, hover_color, original_color):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    active = False
-
-    if x+width > mouse[0] > x and y+height > mouse[1] > y:
-        pygame.draw.rect(gameDisplay, hover_color, (x,y,width,height))
-
-        # If left click on the button, then call the action
-        if click[0] == 1: #and action != None:
-            active = True
-    else:
-        pygame.draw.rect(gameDisplay, original_color, (x,y,width,height))
-
 # Function: game_intro
 # Call this function to display the home screen
 def game_intro():
@@ -119,16 +103,119 @@ def game_loop():
 
     game = True
 
+    # Handling input boxes
+    font = pygame.font.Font(None, 32)
+    team_1_color_inactive = pygame.Color('ghostwhite')
+    team_1_color_active = pygame.Color('gold1')
+    team_1_color = team_1_color_inactive
+    team_1_text = ''
+    team_1_active = False
+    team_2_color_inactive = pygame.Color('ghostwhite')
+    team_2_color_active = pygame.Color('gold1')
+    team_2_color = team_2_color_inactive
+    team_2_text = ''
+    team_2_active = False
+    team_3_color_inactive = pygame.Color('ghostwhite')
+    team_3_color_active = pygame.Color('gold1')
+    team_3_color = team_3_color_inactive
+    team_3_text = ''
+    team_3_active = False
+
     while game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+          
+            # Check for button clicks in the input boxes
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if team_1.collidepoint(event.pos):
+                    team_1_active = True 
+                    team_1_color = team_1_color_active
+                else:
+                    team_1_active = False
+                    team_1_color = team_1_color_inactive
 
-        # NOTE: This is just here to check that we are changing scenes
-        input_box(100, 150, 150, 25, input_hover, input_color)#meant to be an input button for points
-        input_box(100, 350, 150, 25, input_hover, input_color)
-        input_box(100, 550, 150, 25, input_hover, input_color)
+                if team_2.collidepoint(event.pos):
+                    team_2_active = True
+                    team_2_color = team_2_color_active
+                else:
+                    team_2_active = False
+                    team_2_color = team_2_color_inactive
+
+                if team_3.collidepoint(event.pos):
+                    team_3_active = True
+                    team_3_color = team_3_color_active
+                else:
+                    team_3_active = False
+                    team_3_color = team_3_color_inactive
+
+            # Read keyboard presses. This only reads one keyboard press at
+            # a time.
+            if event.type == pygame.KEYDOWN:
+                if team_1_active:
+                    if event.key == pygame.K_RETURN:
+                        print("Team 1: " + team_1_text)
+                        team_1_text = ''
+                    elif event.key == pygame.K_BACKSPACE:
+                        team_1_text = team_1_text[:-1]
+                    else:
+                        team_1_text += event.unicode
+  
+                if team_2_active:
+                    if event.key == pygame.K_RETURN:
+                        print("Team 2: " + team_2_text)
+                        team_2_text = ''
+                    elif event.key == pygame.K_BACKSPACE:
+                        team_2_text = team_2_text[:-1]
+                    else:
+                        team_2_text += event.unicode
+
+                if team_3_active:
+                    if event.key == pygame.K_RETURN:
+                        print("Team 3: " + team_3_text)
+                        team_3_text = ''
+                    elif event.key == pygame.K_BACKSPACE:
+                        team_3_text = team_3_text[:-1]
+                    else:
+                        team_3_text += event.unicode
+
+        gameDisplay.fill((30, 30, 30))
+
+        # Displaying team 1 items
+        team_1 = pygame.Rect(100, 225, 150, 25);
+        team_1_txtsurf = font.render(team_1_text, True, team_1_color)
+        team_1_width = max(200, team_1_txtsurf.get_width() + 10)
+        team_1.w = team_1_width
+        gameDisplay.blit(team_1_txtsurf, (team_1.x+5, team_1.y+5))
+        pygame.draw.rect(gameDisplay, team_1_color, team_1, 2)
+
+        # Team 1 team icon box
+        pygame.draw.rect(gameDisplay, team_1_color, (100, 25, 200, 175)) 
+
+
+        # Displaying team 2 items 
+        team_2 = pygame.Rect(100, 475, 150, 25);
+        team_2_txtsurf = font.render(team_2_text, True, team_2_color)
+        team_2_width = max(200, team_2_txtsurf.get_width() + 10)
+        team_2.w = team_2_width
+        gameDisplay.blit(team_2_txtsurf, (team_2.x+5, team_2.y+5))
+        pygame.draw.rect(gameDisplay, team_2_color, team_2, 2)
+
+        # Team 2 team icon box
+        pygame.draw.rect(gameDisplay, team_2_color, (100, 275, 200, 175))        
+
+
+        # Displaying team 3 items
+        team_3 = pygame.Rect(100, 725, 150, 25);
+        team_3_txtsurf = font.render(team_3_text, True, team_3_color)
+        team_3_width = max(200, team_3_txtsurf.get_width() + 10)
+        team_3.w = team_3_width
+        gameDisplay.blit(team_3_txtsurf, (team_3.x+5, team_3.y+5))
+        pygame.draw.rect(gameDisplay, team_3_color, team_3, 2)
+
+        # Team 3 team icon box
+        pygame.draw.rect(gameDisplay, team_3_color, (100, 525, 200, 175)) 
 
         pygame.display.update()
         clock.tick(60)
