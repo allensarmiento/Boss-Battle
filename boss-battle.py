@@ -17,7 +17,7 @@ blue = (0, 0, 255)
 
 ###### CUSTOMIZATIONS #######
 # variables to edit quickly #
-display_width = 1024
+display_width = 1366
 display_height = 768
 
 background_color = black
@@ -107,8 +107,8 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        button("Play", 250, 600, 150, 50, button_hover_color, button_color, "play")
-        button("Quit", 650, 600, 150, 50, button_hover_color, button_color, "quit")
+        button("Play", 350, 550, 150, 50, button_hover_color, button_color, "play")
+        button("Quit", 800, 550, 150, 50, button_hover_color, button_color, "quit")
 
         pygame.display.update()
         clock.tick(60)
@@ -126,10 +126,9 @@ def game_loop():
                 quit()
 
         # NOTE: This is just here to check that we are changing scenes
-        input_box(200, 300, 200, 50, input_hover, input_color)#meant to be an input button for points
-        input_box(450, 300, 200, 50, input_hover, input_color)
-        input_box(700, 300, 200, 50, input_hover, input_color)
-        button("In Game Button", 450, 600, 200, 50, button_hover_color, button_color, "game")
+        input_box(100, 150, 150, 25, input_hover, input_color)#meant to be an input button for points
+        input_box(100, 350, 150, 25, input_hover, input_color)
+        input_box(100, 550, 150, 25, input_hover, input_color)
 
         pygame.display.update()
         clock.tick(60)
@@ -145,11 +144,11 @@ clock = pygame.time.Clock()
 # Title screen image
 # NOTE: Change the value in order to center the image how you would like.
 title_img = pygame.image.load(title_screen_img_path)
-title_img = pygame.transform.scale(title_img, (display_width-300, display_height-250))
+title_img = pygame.transform.scale(title_img, (display_width-500, display_height-250))
 
 # Location for the image to be placed
 # NOTE: Change these values to center the image how you would like.
-(x, y) = (150, 50)
+(x, y) = (display_width//6, display_height//10)
 
 # Loop for intro screen
 intro = True
