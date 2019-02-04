@@ -30,6 +30,7 @@ game_title = "Star Wars: EpSIode 2019"
 
 title_screen_img_path = "starwarslogo.png"
 
+boss_image = "darth.png"
 boss_filename = "boss-info.txt"
 boss_info = open(boss_filename, 'r')
 print boss_info.read()
