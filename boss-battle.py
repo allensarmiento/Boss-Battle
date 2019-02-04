@@ -1,5 +1,5 @@
 import pygame
-from tkinter import *
+from Tkinter import *
 
 pygame.init()
 
@@ -30,14 +30,18 @@ game_title = "Star Wars: EpSIode 2019"
 
 title_screen_img_path = "starwarslogo.png"
 
+boss_filename = "boss-info.txt"
+boss_info = open(boss_filename, 'r')
+print boss_info.read()
+
 #Team names and images
-team1_name = ""
+team1_name = "One"
 team1_image = ""
 
-team2_name = ""
+team2_name = "Two"
 team2_image = ""
 
-team3_name = ""
+team3_name = "Three"
 team3_image = ""
 #############################
 
@@ -126,11 +130,11 @@ def game_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-          
+
             # Check for button clicks in the input boxes
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if team_1.collidepoint(event.pos):
-                    team_1_active = True 
+                    team_1_active = True
                     team_1_color = team_1_color_active
                 else:
                     team_1_active = False
@@ -161,7 +165,7 @@ def game_loop():
                         team_1_text = team_1_text[:-1]
                     else:
                         team_1_text += event.unicode
-  
+
                 if team_2_active:
                     if event.key == pygame.K_RETURN:
                         print("Team 2: " + team_2_text)
@@ -191,10 +195,10 @@ def game_loop():
         pygame.draw.rect(gameDisplay, team_1_color, team_1, 2)
 
         # Team 1 team icon box
-        pygame.draw.rect(gameDisplay, team_1_color, (100, 25, 200, 175)) 
+        pygame.draw.rect(gameDisplay, team_1_color, (100, 25, 200, 175))
 
 
-        # Displaying team 2 items 
+        # Displaying team 2 items
         team_2 = pygame.Rect(100, 475, 150, 25);
         team_2_txtsurf = font.render(team_2_text, True, team_2_color)
         team_2_width = max(200, team_2_txtsurf.get_width() + 10)
@@ -203,7 +207,7 @@ def game_loop():
         pygame.draw.rect(gameDisplay, team_2_color, team_2, 2)
 
         # Team 2 team icon box
-        pygame.draw.rect(gameDisplay, team_2_color, (100, 275, 200, 175))        
+        pygame.draw.rect(gameDisplay, team_2_color, (100, 275, 200, 175))
 
 
         # Displaying team 3 items
@@ -215,7 +219,7 @@ def game_loop():
         pygame.draw.rect(gameDisplay, team_3_color, team_3, 2)
 
         # Team 3 team icon box
-        pygame.draw.rect(gameDisplay, team_3_color, (100, 525, 200, 175)) 
+        pygame.draw.rect(gameDisplay, team_3_color, (100, 525, 200, 175))
 
         pygame.display.update()
         clock.tick(60)
