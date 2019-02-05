@@ -30,7 +30,7 @@ game_title = "Star Wars: EpSIode 2019"
 
 title_screen_img_path = "starwarslogo.png"
 
-boss_image = "darth.png"
+boss_image_path = "darth.png"
 boss_filename = "boss-info.txt"
 boss_info = open(boss_filename, 'r')
 print boss_info.read()
@@ -225,6 +225,12 @@ def game_loop():
         pygame.display.update()
         clock.tick(60)
 
+        #Display Boss Icons
+        #maybe it'd be fun to have health bars?
+        gameDisplay.blit(boss_img, (100, 100))
+        gameDisplay.blit(boss_img, (200, 475))
+        gameDisplay.blit(boss_img, (200, 725))
+
 
 # Set the window size and title
 gameDisplay = pygame.display.set_mode((display_width, display_height))
@@ -237,6 +243,9 @@ clock = pygame.time.Clock()
 # NOTE: Change the value in order to center the image how you would like.
 title_img = pygame.image.load(title_screen_img_path)
 title_img = pygame.transform.scale(title_img, (display_width-500, display_height-250))
+
+boss_img = pygame.image.load(boss_image_path)
+boss_img = pygame.transform.scale(boss_img, (display_width-200, display_height-175))
 
 # Location for the image to be placed
 # NOTE: Change these values to center the image how you would like.
