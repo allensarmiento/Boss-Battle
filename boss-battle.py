@@ -50,8 +50,8 @@ team3_image = ""
 #############################
 
 
-def render_text(text, font):
-    textSurface = font.render(text, True, black)
+def render_text(text, font, color):
+    textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
 def button(msg, x, y, width, height, hover_color, original_color, action=None):
@@ -72,7 +72,7 @@ def button(msg, x, y, width, height, hover_color, original_color, action=None):
 
     # Add the button
     buttonText = pygame.font.Font("freesansbold.ttf", 20)
-    textSurf, textRect = render_text(msg, buttonText)
+    textSurf, textRect = render_text(msg, buttonText, black)
     textRect.center = ( (x+(width/2)), (y+(height/2)) )
     gameDisplay.blit(textSurf, textRect)
 
@@ -231,12 +231,17 @@ def game_loop():
         # Team 3 team icon box
         pygame.draw.rect(gameDisplay, team_3_color, (100, 525, 200, 175))
 
+        bossText = pygame.font.Font("freesansbold.ttf", 20)
+
         # Team 1 Boss
         team_1_boss = pygame.Rect(1100, 200, boss_1_health, 25)
         team_1_boss_max_health = pygame.Rect(1100, 200, 250, 25)
         pygame.draw.rect(gameDisplay, grey, team_1_boss_max_health, 2)
         pygame.draw.rect(gameDisplay, red, team_1_boss)
         boss_image(1100, 45)
+        boss_1_textSurf, boss_1_textRect = render_text("Health: " + str(boss_1_health), bossText, grey)
+        boss_1_textRect.center = ( (1100-75, 215) )
+        gameDisplay.blit(boss_1_textSurf, boss_1_textRect)
 
         # Team 2 Boss
         team_2_boss = pygame.Rect(1100, 425, boss_2_health, 25)
@@ -244,6 +249,9 @@ def game_loop():
         pygame.draw.rect(gameDisplay, grey, team_2_boss_max_health, 2)
         pygame.draw.rect(gameDisplay, red, team_2_boss)
         boss_image(1100, 270) 
+        boss_2_textSurf, boss_2_textRect = render_text("Health: " + str(boss_2_health), bossText, grey)
+        boss_2_textRect.center = ( (1100-75, 440) )
+        gameDisplay.blit(boss_2_textSurf, boss_2_textRect)
 
         # Team 3 Boss
         team_3_boss = pygame.Rect(1100, 675, boss_3_health, 25)
@@ -251,6 +259,9 @@ def game_loop():
         pygame.draw.rect(gameDisplay, grey, team_3_boss_max_health, 2)
         pygame.draw.rect(gameDisplay, red, team_3_boss)
         boss_image(1100, 520)
+        boss_3_textSurf, boss_3_textRect = render_text("Health: " + str(boss_3_health), bossText, grey)
+        boss_3_textRect.center = ( (1100-75, 690) )
+        gameDisplay.blit(boss_3_textSurf, boss_3_textRect)
 
         pygame.display.update()
         clock.tick(60)
