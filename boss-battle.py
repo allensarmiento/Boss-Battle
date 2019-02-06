@@ -1,5 +1,8 @@
 import pygame
-from Tkinter import *
+try: 
+    from Tkinter import *
+except ImportError:
+    from tkinter import *
 
 pygame.init()
 
@@ -29,11 +32,11 @@ input_hover = grey
 game_title = "Star Wars: EpSIode 2019"
 
 title_screen_img_path = "starwarslogo.png"
-
 boss_image_path = "darth.png"
+
 boss_filename = "boss-info.txt"
 boss_info = open(boss_filename, 'r')
-print boss_info.read()
+print(boss_info.read())
 
 #Team names and images
 team1_name = "One"
@@ -101,6 +104,10 @@ def game_intro():
 
         pygame.display.update()
         clock.tick(60)
+
+
+def boss_image(x, y):
+    gameDisplay.blit(boss_img, (x, y))
 
 # Fuction: game_loop
 def game_loop():
@@ -222,14 +229,14 @@ def game_loop():
         # Team 3 team icon box
         pygame.draw.rect(gameDisplay, team_3_color, (100, 525, 200, 175))
 
-        pygame.display.update()
-        clock.tick(60)
-
         #Display Boss Icons
         #maybe it'd be fun to have health bars?
-        gameDisplay.blit(boss_img, (100, 100))
-        gameDisplay.blit(boss_img, (200, 475))
-        gameDisplay.blit(boss_img, (200, 725))
+        boss_image(1100, 45)
+        boss_image(1100, 270)
+        boss_image(1100, 520)
+
+        pygame.display.update()
+        clock.tick(60)
 
 
 # Set the window size and title
@@ -245,7 +252,7 @@ title_img = pygame.image.load(title_screen_img_path)
 title_img = pygame.transform.scale(title_img, (display_width-500, display_height-250))
 
 boss_img = pygame.image.load(boss_image_path)
-boss_img = pygame.transform.scale(boss_img, (display_width-200, display_height-175))
+boss_img = pygame.transform.scale(boss_img, (150, 150))
 
 # Location for the image to be placed
 # NOTE: Change these values to center the image how you would like.
