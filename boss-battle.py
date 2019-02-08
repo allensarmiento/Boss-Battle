@@ -23,8 +23,8 @@ pygame.init()
 
 # -------- Customizations ------------
 # Display settings
-display_width = 1600
-display_height = 900
+display_width = 1440
+display_height = 800
 
 # Background color
 background_color = black
@@ -41,7 +41,7 @@ game_title = "Star Wars: EpSIode 2019"
 # Images
 title_screen_img_path = "star_wars.png"
 boss_image_path = "darth.png"
-game_bg_path = "starwarsspace.jpg"
+game_bg_path = "space-collision.jpg"
 
 # Textfile
 boss_filename = "boss-info.txt"
@@ -98,8 +98,8 @@ def game_intro():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        button("Play", 500, 600, 150, 50, button_hover_color, button_color, "play")
-        button("Quit", 900, 600, 150, 50, button_hover_color, button_color, "quit")
+        button("Play", 425, 550, 150, 50, button_hover_color, button_color, "play")
+        button("Quit", 825, 550, 150, 50, button_hover_color, button_color, "quit")
         pygame.display.update()
         clock.tick(60)
 
@@ -207,21 +207,21 @@ def game_loop():
         if team_1_damage > 0:
             bullet = Bullet()
             bullet.rect.x = 225
-            bullet.rect.y = 150
+            bullet.rect.y = 100
             bullet_list.add(bullet)
             team_1_damage -= 1
         
         if team_2_damage > 0:
             bullet = Bullet()
             bullet.rect.x = 225
-            bullet.rect.y = 400
+            bullet.rect.y = 350
             bullet_list.add(bullet)
             team_2_damage -= 1
         
         if team_3_damage > 0:
             bullet = Bullet()
             bullet.rect.x = 225
-            bullet.rect.y = 675
+            bullet.rect.y = 625
             bullet_list.add(bullet)
             team_3_damage -= 1
 
@@ -230,17 +230,17 @@ def game_loop():
             bullet_list.update()
 
         for bullet in bullet_list:
-            if bullet.rect.x > display_width-450 and bullet.rect.y == 150:
+            if bullet.rect.x > display_width-375 and bullet.rect.y == 100:
                 bullet_list.remove(bullet)
                 boss_1_health -= 1
                 if boss_1_health < 0:
                     boss_1_health = 0
-            if bullet.rect.x > display_width-450 and bullet.rect.y == 400:
+            if bullet.rect.x > display_width-375 and bullet.rect.y == 350:
                 bullet_list.remove(bullet)
                 boss_2_health -= 1
                 if boss_2_health < 0:
                     boss_2_health = 0
-            if bullet.rect.x > display_width-450 and bullet.rect.y == 675:
+            if bullet.rect.x > display_width-375 and bullet.rect.y == 625:
                 bullet_list.remove(bullet)
                 boss_3_health -= 1
                 if boss_3_health < 0:
@@ -249,61 +249,61 @@ def game_loop():
         bullet_list.draw(gameDisplay)
 
         # --- Team items
-        team_1 = pygame.Rect(150, 280, 150, 25)
+        team_1 = pygame.Rect(150, 230, 150, 25)
         team_1_txtsurf = font.render(team_1_text, True, team_1_color)
         team_1_width = max(200, team_1_txtsurf.get_width() + 10)
         team_1.w = team_1_width
         gameDisplay.blit(team_1_txtsurf, (team_1.x+5, team_1.y+5))
         pygame.draw.rect(gameDisplay, team_1_color, team_1, 2)
         
-        pygame.draw.rect(gameDisplay, team_1_color, (150, 80, 200, 175))
+        pygame.draw.rect(gameDisplay, team_1_color, (150, 30, 200, 175))
 
-        team_2 = pygame.Rect(150, 550, 150, 25)
+        team_2 = pygame.Rect(150, 500, 150, 25)
         team_2_txtsurf = font.render(team_2_text, True, team_2_color)
         team_2_width = max(200, team_2_txtsurf.get_width() + 10)
         team_2.w = team_2_width
         gameDisplay.blit(team_2_txtsurf, (team_2.x+5, team_2.y+5))
         pygame.draw.rect(gameDisplay, team_2_color, team_2, 2)
         
-        pygame.draw.rect(gameDisplay, team_2_color, (150, 350, 200, 175))
+        pygame.draw.rect(gameDisplay, team_2_color, (150, 300, 200, 175))
 
-        team_3 = pygame.Rect(150, 825, 150, 25)
+        team_3 = pygame.Rect(150, 750, 150, 25)
         team_3_txtsurf = font.render(team_3_text, True, team_3_color)
         team_3_width = max(200, team_3_txtsurf.get_width() + 10)
         team_3.w = team_3_width
         gameDisplay.blit(team_3_txtsurf, (team_3.x+5, team_3.y+5))
         pygame.draw.rect(gameDisplay, team_3_color, team_3, 2)
         
-        pygame.draw.rect(gameDisplay, team_3_color, (150, 625, 200, 175))
+        pygame.draw.rect(gameDisplay, team_3_color, (150, 550, 200, 175))
 
         # --- Boss
         bossText = pygame.font.Font("freesansbold.ttf", 20)
 
-        team_1_boss = pygame.Rect(1100, 280, boss_1_health, 25)
-        team_1_boss_max_health = pygame.Rect(1100, 280, 300, 25)
+        team_1_boss = pygame.Rect(1000, 230, boss_1_health, 25)
+        team_1_boss_max_health = pygame.Rect(1000, 230, 300, 25)
         pygame.draw.rect(gameDisplay, grey, team_1_boss_max_health)
         pygame.draw.rect(gameDisplay, darkred, team_1_boss)
-        boss_image(1150, 80)
+        boss_image(1050, 30)
         boss_1_textSurf, boss_1_textRect = render_text("Health: " + str(boss_1_health), bossText, white)
-        boss_1_textRect.center = ( (1100-75, 280+15) )
+        boss_1_textRect.center = ( (1000-75, 230+15) )
         gameDisplay.blit(boss_1_textSurf, boss_1_textRect)
 
-        team_2_boss = pygame.Rect(1100, 550, boss_2_health, 25)
-        team_2_boss_max_health = pygame.Rect(1100, 550, 300, 25)
+        team_2_boss = pygame.Rect(1000, 500, boss_2_health, 25)
+        team_2_boss_max_health = pygame.Rect(1000, 500, 300, 25)
         pygame.draw.rect(gameDisplay, darkgrey, team_2_boss_max_health)
         pygame.draw.rect(gameDisplay, darkred, team_2_boss)
-        boss_image(1150, 350) 
+        boss_image(1050, 300) 
         boss_2_textSurf, boss_2_textRect = render_text("Health: " + str(boss_2_health), bossText, white)
-        boss_2_textRect.center = ( (1100-75, 550+15) )
+        boss_2_textRect.center = ( (1000-75, 500+15) )
         gameDisplay.blit(boss_2_textSurf, boss_2_textRect)
 
-        team_3_boss = pygame.Rect(1100, 820, boss_3_health, 25)
-        team_3_boss_max_health = pygame.Rect(1100, 820, 300, 25)
+        team_3_boss = pygame.Rect(1000, 755, boss_3_health, 25)
+        team_3_boss_max_health = pygame.Rect(1000, 755, 300, 25)
         pygame.draw.rect(gameDisplay, grey, team_3_boss_max_health)
         pygame.draw.rect(gameDisplay, darkred, team_3_boss)
-        boss_image(1150, 620)
+        boss_image(1050, 555)
         boss_3_textSurf, boss_3_textRect = render_text("Health: " + str(boss_3_health), bossText, white)
-        boss_3_textRect.center = ( (1100-75, 820+15) )
+        boss_3_textRect.center = ( (1000-75, 755+15) )
         gameDisplay.blit(boss_3_textSurf, boss_3_textRect)
 
         pygame.display.update()
@@ -316,7 +316,7 @@ pygame.display.set_caption(game_title)
 clock = pygame.time.Clock()
 
 title_img = pygame.image.load(title_screen_img_path)
-title_img = pygame.transform.scale(title_img, (display_width-600, display_height-350))
+title_img = pygame.transform.scale(title_img, (display_width-500, display_height-300))
 
 boss_img = pygame.image.load(boss_image_path).convert()
 transColor = boss_img.get_at((0, 0))
