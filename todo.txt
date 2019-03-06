@@ -6,14 +6,14 @@ Main Menu:
   - Quit Button [Check]
   - Play Button functionality [Check]
   - Quit Button functionality [Check]
-  - Other Buttons
 
 Game:
-  - Image of teams
-  - Teams names
-  - Attack Input w/ submit button
-  - Boss Image
-  - Boss Health
+  - Image of teams [Check]
+  - Teams names [Check]
+  - Attack Input w/ submit button [Check]
+  - Attack Button Functionality 
+  - Boss Image [Check]
+  - Boss Health [Check]
   - Textfile to remember the gameboard [file made]
+  - Textfile update when quit program
 
-using this for the input button
