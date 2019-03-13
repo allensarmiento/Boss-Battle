@@ -1,3 +1,4 @@
+import math
 import pygame
 try:
     from Tkinter import *
@@ -23,13 +24,16 @@ lightblue = (0, 255, 255)
 # Initialization
 pygame.init()
 
+# Scaling Factor
+scale = 1.35
+
 # ----- Customizations -----
 # Game title
 game_title = "Title Goes Here"
 
 # Display settings
-display_width = 1280
-display_height = 720
+display_width = math.floor(1280 * scale)
+display_height = math.floor(720 * scale)
 
 # Background color
 background_color = black
@@ -118,15 +122,20 @@ def game_button(text, x, y, width, height, default_color, hover_color, action=No
     text_rectangle.center = ( (x + (width / 2)), (y + (height / 2)) )
     gameDisplay.blit(text_surface, text_rectangle)
 
+# TODO
+# change_display: Changes the display size
+def change_display(): 
+    pygame.display.set_mode((1600, 900))
+
 # game_intro: Home screen of the game
 def game_intro():
     # --- Button Locations ---
-    button_y_coord = 550
-    button_width = 150
-    button_height = 50
+    button_y_coord = math.floor(550 * scale)
+    button_width = math.floor(150 * scale)
+    button_height = math.floor(50 * scale)
 
-    play_x_coord = 300
-    quit_x_coord = 800
+    play_x_coord = math.floor(300 * scale)
+    quit_x_coord = math.floor(800 * scale)
     # --- End of Button Locations ---
 
     # create_button: Creates a menu button
@@ -259,9 +268,9 @@ def game_loop():
         
         display_image(game_bg, 0, 0)
 
-        bullet_x_coord  = 225
+        bullet_x_coord  = math.floor(225 * scale)
 
-        team_1_bullet_y_coord = 100
+        team_1_bullet_y_coord = math.floor(100 * scale)
         if team_1_damage > 0:
             bullet = Bullet()
             bullet.rect.x = bullet_x_coord
@@ -273,7 +282,7 @@ def game_loop():
                 boss_1_health += 1
             team_1_damage += 1
 
-        team_2_bullet_y_coord = 325
+        team_2_bullet_y_coord = math.floor(325 * scale)
         if team_2_damage > 0:
             bullet = Bullet()
             bullet.rect.x = bullet_x_coord
@@ -285,7 +294,7 @@ def game_loop():
                 boss_2_health += 1
             team_2_damage += 1
         
-        team_3_bullet_y_coord = 550
+        team_3_bullet_y_coord = math.floor(550 * scale)
         if team_3_damage > 0:
             bullet = Bullet()
             bullet.rect.x = bullet_x_coord
@@ -301,7 +310,7 @@ def game_loop():
         for i in range(0, 7):
             bullet_list.update()
         
-        bullet_collide_point = 200
+        bullet_collide_point = math.floor(200 * scale)
 
         for bullet in bullet_list:
             # Team 1 Boss
@@ -328,25 +337,25 @@ def game_loop():
         bullet_list.draw(gameDisplay)
 
         # Team items: Icon box, input box
-        icon_x_coord = 100
-        attack_x_coord = 315
-        team_name_x_coord = icon_x_coord + 325
+        icon_x_coord = math.floor(100 * scale)
+        attack_x_coord = math.floor(315 * scale)
+        team_name_x_coord = math.floor( (icon_x_coord + 325) * scale)
 
         # ----- Team 1 -----
-        team_1_icon_y_coord = 15
-        team_1_input_y_coord = team_1_icon_y_coord + 185
-        team_1_name_y_coord = team_1_icon_y_coord + 15
+        team_1_icon_y_coord = math.floor(15 * scale)
+        team_1_input_y_coord = math.floor(team_1_icon_y_coord + 185 * scale)
+        team_1_name_y_coord = math.floor(team_1_icon_y_coord + 15 * scale)
 
-        pygame.draw.rect(gameDisplay, team_1_color, (icon_x_coord, team_1_icon_y_coord, 200, 175))
+        pygame.draw.rect(gameDisplay, team_1_color, (icon_x_coord, team_1_icon_y_coord, math.floor(200 * scale), math.floor(175 * scale)))
         display_image(team_1_icon_img, icon_x_coord, team_1_icon_y_coord)
 
         team_1_textSurf, team_1_textRect = render_text("TEAM 1", bossText, white)
         team_1_textRect.center = ( (team_name_x_coord, team_1_name_y_coord) )
         gameDisplay.blit(team_1_textSurf, team_1_textRect)
 
-        team_1 = pygame.Rect(icon_x_coord, team_1_input_y_coord, 150, 25)
+        team_1 = pygame.Rect(icon_x_coord, team_1_input_y_coord, math.floor(150 * scale), math.floor(25 * scale))
         team_1_txtsurf = basic_font.render(team_1_text, True, team_1_color)
-        team_1_width = max(200, team_1_txtsurf.get_width() + 10)
+        team_1_width = max(math.floor(200 * scale), team_1_txtsurf.get_width() + 10)
         team_1.w = team_1_width
         gameDisplay.blit(team_1_txtsurf, (team_1.x+5, team_1.y+5))
         pygame.draw.rect(gameDisplay, team_1_color, team_1, 2)
@@ -354,20 +363,20 @@ def game_loop():
         # ----- End of Team 1 ----- 
 
         # ----- Team 2 -----
-        team_2_icon_y_coord = 250
-        team_2_input_y_coord = team_2_icon_y_coord + 185
-        team_2_name_y_coord = team_2_icon_y_coord + 15
+        team_2_icon_y_coord = math.floor(250 * scale)
+        team_2_input_y_coord = math.floor(team_2_icon_y_coord + 185 * scale)
+        team_2_name_y_coord = math.floor(team_2_icon_y_coord + 15 * scale)
 
-        pygame.draw.rect(gameDisplay, team_2_color, (icon_x_coord, team_2_icon_y_coord, 200, 175))
+        pygame.draw.rect(gameDisplay, team_2_color, (icon_x_coord, team_2_icon_y_coord, math.floor(200 * scale), math.floor(175 * scale)))
         display_image(team_2_icon_img, icon_x_coord, team_2_icon_y_coord)
 
         team_2_textSurf, team_2_textRect = render_text("TEAM 2", bossText, white)
         team_2_textRect.center = ( (team_name_x_coord, team_2_name_y_coord) )
         gameDisplay.blit(team_2_textSurf, team_2_textRect)
 
-        team_2 = pygame.Rect(icon_x_coord, team_2_input_y_coord, 150, 25)
+        team_2 = pygame.Rect(icon_x_coord, team_2_input_y_coord, math.floor(150 * scale), math.floor(25 * scale))
         team_2_txtsurf = basic_font.render(team_2_text, True, team_2_color)
-        team_2_width = max(200, team_2_txtsurf.get_width() + 10)
+        team_2_width = max(math.floor(200 * scale), team_2_txtsurf.get_width() + 10)
         team_2.w = team_2_width
         gameDisplay.blit(team_2_txtsurf, (team_2.x+5, team_2.y+5))
         pygame.draw.rect(gameDisplay, team_2_color, team_2, 2)
@@ -375,20 +384,20 @@ def game_loop():
         # ----- End of Team 2 -----
 
         # ----- Team 3 -----
-        team_3_icon_y_coord = 485
-        team_3_input_y_coord = team_3_icon_y_coord + 185
-        team_3_name_y_coord = team_3_icon_y_coord + 15
+        team_3_icon_y_coord = math.floor(485 * scale)
+        team_3_input_y_coord = math.floor(team_3_icon_y_coord + 185 * scale)
+        team_3_name_y_coord = math.floor(team_3_icon_y_coord + 15 * scale)
 
-        pygame.draw.rect(gameDisplay, team_3_color, (icon_x_coord, team_3_icon_y_coord, 200, 175))
+        pygame.draw.rect(gameDisplay, team_3_color, (icon_x_coord, team_3_icon_y_coord, math.floor(200 * scale), math.floor(175 * scale)))
         display_image(team_3_icon_img, icon_x_coord, team_3_icon_y_coord)
 
         team_3_textSurf, team_3_textRect = render_text("TEAM 3", bossText, white)
         team_3_textRect.center = ( (team_name_x_coord, team_3_name_y_coord) )
         gameDisplay.blit(team_3_textSurf, team_3_textRect)
         
-        team_3 = pygame.Rect(icon_x_coord, team_3_input_y_coord, 150, 25)
+        team_3 = pygame.Rect(icon_x_coord, team_3_input_y_coord, math.floor(150 * scale), math.floor(25 * scale))
         team_3_txtsurf = basic_font.render(team_3_text, True, team_3_color)
-        team_3_width = max(200, team_3_txtsurf.get_width() + 10)
+        team_3_width = max(math.floor(200 * scale), team_3_txtsurf.get_width() + 10)
         team_3.w = team_3_width
         gameDisplay.blit(team_3_txtsurf, (team_3.x+5, team_3.y+5))
         pygame.draw.rect(gameDisplay, team_3_color, team_3, 2)
@@ -396,11 +405,11 @@ def game_loop():
         # ----- End of Team 3 -----
 
         # Boss items: Boss icon, health text, health bar
-        boss_x_coord = 1000
+        boss_x_coord = math.floor(1000 * scale)
 
         # --- Team 1 Boss 
-        boss_1_icon_y_coord = 15
-        boss_1_input_y_coord = 200
+        boss_1_icon_y_coord = math.floor(15 * scale)
+        boss_1_input_y_coord = math.floor(200 * scale)
 
         display_image(team_1_boss_img, boss_x_coord, boss_1_icon_y_coord)
 
@@ -462,7 +471,7 @@ title_img = pygame.transform.scale(title_img, (display_width, display_height))
 boss_img = pygame.image.load(boss_image_path).convert()
 transColor = boss_img.get_at((0, 0))
 boss_img.set_colorkey(transColor)
-boss_img = pygame.transform.scale(boss_img, (175, 175))
+boss_img = pygame.transform.scale(boss_img, (math.floor(175 * scale), math.floor(175 * scale)))
 
 # Game Background
 game_bg = pygame.image.load(game_bg_path).convert()
@@ -470,25 +479,25 @@ game_bg = pygame.transform.scale(game_bg, (display_width, display_height))
 
 # --- Team 1 Icon and Box Image ---
 team_1_icon_img = pygame.image.load(team_1_icon_path)
-team_1_icon_img = pygame.transform.scale(team_1_icon_img, (200, 175))
+team_1_icon_img = pygame.transform.scale(team_1_icon_img, (math.floor(200 * scale), math.floor(175 * scale)))
 team_1_boss_img = pygame.image.load(team_1_image_path).convert()
-team_1_boss_img = pygame.transform.scale(team_1_boss_img, (200, 175))
+team_1_boss_img = pygame.transform.scale(team_1_boss_img, (math.floor(200 * scale), math.floor(175 * scale)))
 #team_1_boss_hit_img = pygame.image.load(team_1_hit_image_path)
 #team_1_boss_hit_img = pygame.transform.scale(team_1_hit_image_path, (175, 200))
 # --- End of Team 1 Icon and Box Image --- 
 
 # --- Team 2 Icon and Box Image ---
 team_2_icon_img = pygame.image.load(team_2_icon_path)
-team_2_icon_img = pygame.transform.scale(team_2_icon_img, (200, 175))
+team_2_icon_img = pygame.transform.scale(team_2_icon_img, (math.floor(200 * scale), math.floor(175 * scale)))
 team_2_boss_img = pygame.image.load(team_2_boss_path)
-team_2_boss_img = pygame.transform.scale(team_2_boss_img, (200, 175))
+team_2_boss_img = pygame.transform.scale(team_2_boss_img, (math.floor(200 * scale), math.floor(175 * scale)))
 # --- End of Team 2 Icon and Box Image ---
 
 # --- Team 3 Icon and Box Image ---
 team_3_icon_img = pygame.image.load(team_3_icon_path)
-team_3_icon_img = pygame.transform.scale(team_3_icon_img, (200, 175))
+team_3_icon_img = pygame.transform.scale(team_3_icon_img, (math.floor(200 * scale), math.floor(175 * scale)))
 team_3_boss_img = pygame.image.load(team_3_image_path)
-team_3_boss_img = pygame.transform.scale(team_3_boss_img, (200, 175))
+team_3_boss_img = pygame.transform.scale(team_3_boss_img, (math.floor(200 * scale), math.floor(175 * scale)))
 # --- End of Team 3 Icon and Box Image ---
 
 # Location for the image to be placed
