@@ -25,7 +25,7 @@ lightblue = (0, 255, 255)
 pygame.init()
 
 # Scaling Factor
-scale = 1.35
+scale = 1.05
 
 # ----- Customizations -----
 # Game title
@@ -465,7 +465,7 @@ clock = pygame.time.Clock()
 # Title Image
 title_img = pygame.image.load(title_screen_img_path)
 title_img = pygame.transform.scale(title_img, (display_width, display_height))
-#title_img = pygame.transform.scale(title_img, (display_width-500, display_height-300))
+#title_img = pygame.transform.scale(title_img, (display_width - math.floor(370 * scale), display_height - math.floor(222 * scale)))
 
 # Default Boss Image
 boss_img = pygame.image.load(boss_image_path).convert()
