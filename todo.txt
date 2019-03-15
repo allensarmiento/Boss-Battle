@@ -7,6 +7,9 @@ Main Menu:
   - Play Button functionality [Check]
   - Quit Button functionality [Check]
 
+Arrangement:
+  - Create classes for each team
+
 Game:
   - Image of teams [Check]
   - Teams names [Check]
